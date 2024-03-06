@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes float {
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: calc(100vh - 20px);
+    /* Adjust the value based on the height of your div */
+  }
+}
+
+.word {
+  position: absolute;
+  padding: 5px;
+  display: flex;
+  background-color: aquamarine;
+}
+
+.word0 {
+  left: 0px;
+  position: absolute;
+}
+
+.word100 {
+  left: 100px;
+  position: absolute;
+}
+
+.word200 {
+  left: 200px;
+  position: absolute;
+}
+
+.word300 {
+  left: 300px;
+  position: absolute;
+}
+
+.word400 {
+  left: 400px;
+  position: absolute;
+}
+
+.word500 {
+  left: 500px;
+  position: absolute;
+}
+
+.word600 {
+  left: 600px;
+  position: absolute;
+}
+
+.word700 {
+  left: 700px;
+  position: absolute;
+}
+
+.word800 {
+  left: 800px;
+  position: absolute;
+}
+
+.word900 {
+  left: 850px;
+  position: absolute;
+}
+
+.animate-float {
+  /* position: absolute;
+  left: 0; */
+  animation: float 5s linear infinite;
+}

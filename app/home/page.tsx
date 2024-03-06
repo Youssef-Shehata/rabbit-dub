@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import jsonData from '../data/words.json';
 import '../../styles/global.css'
+import AnimatedDiv from '../components/AnimatedDiv';
 
 const shuffle = (array: string[]) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -14,11 +15,16 @@ const shuffle = (array: string[]) => {
 
 export default function home() {
   const [words, setWords] = useState<string[]>([])
+  const [components, setComponents] = useState([])
+
   const [target, setTarget] = useState<string>('')
   const [inputValue, setInputValue] = useState('');
 
+  let counter = 0
+  let interval = 2500;
 
 
+  let animation = 5000;
   const nextTarget = () => {
     const newtarget = words.shift()
     setWords(words)
@@ -65,12 +71,34 @@ export default function home() {
     fetcher()
   }, [])
 
+  const addComponent = () => {
+    setComponents((prevComponents) => [...prevComponents, <AnimatedDiv key={prevComponents.length} word={words[counter]} t={animation} />]);
+    counter++
+    if (counter % 4 == 0 && interval > 300) interval -= 300
+    if (counter % 2 == 0 && animation > 200) animation -= 200
+    // if (counter == words.length && counter != 0) window.alert("you won")
+  };
+
+
+  useEffect(() => {
+
+
+    const intervalId = setInterval(addComponent, interval); // Add a new component every 4 seconds
+
+    return () => {
+      clearInterval(intervalId); // Cleanup the interval when the component unmounts
+    };
+  }, [words]); // Empt
 
 
 
-  return (<div className='dp-flex align-center justify-center'>
-    <div> {target}</div>
+  return (<div className='dp-flex  bg-blue-200 '>
 
+    {/* <div className="w-20 h-20 bg-blue-500 absolute top-0 animate-float">{target}</div> */}
+    {components.map((component, index) => (
+      <div key={index}>{component}</div>
+    ))}
+    {/* <AnimatedDiv key={0} word={target} /> */}
     <form onSubmit={handleSubmit}>
       <input
         type="text"
