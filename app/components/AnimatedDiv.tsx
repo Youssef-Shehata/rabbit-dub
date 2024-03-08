@@ -1,11 +1,10 @@
 "use client"
-import { randomInt } from 'crypto';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, } from 'react';
 
-function AnimatedDiv({ key, word, t }) {
+function AnimatedDiv({ word, t, updateTarget, counter, target }) {
   // const counter = useRef(0)
   // const [word, setWord] = useState(words[0])
-
+  let flag = false
   const animatedDivRef = useRef(null);
   // setTimeout(() => {
   //   counter.current++
@@ -35,12 +34,14 @@ function AnimatedDiv({ key, word, t }) {
       // Update the transform property of the element
       animatedDiv.style.transform = `translateY(${translateY}px)`;
 
-      if (elapsedTime < duration) {
+      if (elapsedTime < duration && counter <= target) {
         // Continue the animation
         requestAnimationFrame(animate);
-      } else {
+      } else if (flag == false) {
         // Animation ended
         console.log('Animation ended');
+        updateTarget()
+        flag = true
 
       }
     }
@@ -58,8 +59,6 @@ function AnimatedDiv({ key, word, t }) {
 
   const options = [0, 100, 200, 300, 400, 500, 600, 700, 800, 900]
   const option = options[Math.floor((Math.random() * options.length))]
-  // const option = 96
-  console.log(option)
   return (
     <div
       ref={animatedDivRef}
